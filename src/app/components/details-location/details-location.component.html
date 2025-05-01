@@ -1,0 +1,62 @@
+<div class="details-container">
+  <h2 class="page-title">Détails de la location</h2>
+  
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner"></div>
+    <p>Chargement en cours...</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    <span class="icon">⚠️</span>
+    <p>{{ errorMessage }}</p>
+    <a routerLink="/" class="btn btn-back">Retour à la liste</a>
+  </div>
+
+  <div *ngIf="location && !isLoading" class="location-details">
+    <div class="detail-header">
+      <h3 class="property-title">{{ location.type }} à {{ location.ville }}</h3>
+      <span class="price">{{ location.prix }}DT<small>/mois</small></span>
+    </div>
+    
+    <div class="detail-body">
+      <div class="property-image-placeholder">
+        <span class="icon">🏠</span>
+        <span>Image non disponible</span>
+      </div>
+      
+      <div class="property-info">
+        <div class="info-section">
+          <div class="info-item">
+            <span class="icon">📏</span>
+            <span><strong>Superficie:</strong> {{ location.superficie }} m²</span>
+          </div>
+          <div class="info-item">
+            <span class="icon">📍</span>
+            <span><strong>Adresse:</strong> {{ location.adresse }}</span>
+          </div>
+        </div>
+        
+        <div class="description-section">
+          <h4>Description</h4>
+          <p>{{ location.description || 'Aucune description disponible' }}</p>
+        </div>
+        
+        <div class="status">
+          <span class="tag" [class.available]="location.disponibilite" [class.unavailable]="!location.disponibilite">
+            <span class="icon">{{ location.disponibilite ? '✅' : '❌' }}</span>
+            {{ location.disponibilite ? 'Disponible' : 'Non disponible' }}
+          </span>
+          <span class="tag" [class.available]="location.meuble" [class.unavailable]="!location.meuble">
+            <span class="icon">{{ location.meuble ? '✅' : '❌' }}</span>
+            {{ location.meuble ? 'Meublé' : 'Non Meublé' }}
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="action-buttons">
+      <a routerLink="/" class="btn btn-back">Retour à la liste</a>
+      <button class="btn btn-primary">Prendre rendez-vous 📅</button>
+    </div>
+  </div>
+</div>

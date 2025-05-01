@@ -1,0 +1,44 @@
+<!-- favorites.component.html -->
+<div class="favorites-container">
+    <h2>Mes Favoris</h2>
+    
+    <div *ngIf="isLoading" class="loading-spinner">
+      Chargement en cours...
+    </div>
+  
+    <div *ngIf="favorites.length === 0 && !isLoading" class="empty-message">
+      Aucun favori pour le moment
+    </div>
+  
+    <div class="location-grid">
+      <div *ngFor="let location of favorites" class="location-card">
+        <!-- Reuse the same card structure as your list component -->
+        <div class="card-header">
+          <h3>{{ location.type }} à {{ location.ville }}</h3>
+          <span class="price">{{ location.prix }}DT/mois</span>
+        </div>
+        
+        <div class="card-body">
+          <p><strong>Superficie:</strong> {{ location.superficie }} m²</p>
+          <p><strong>Adresse:</strong> {{ location.adresse }}</p>
+          <p>{{ location.description }}</p>
+          
+          <div class="status">
+            <span class="tag" [class.available]="location.disponibilite" [class.unavailable]="!location.disponibilite">
+              {{ location.disponibilite ? 'Disponible' : 'Non disponible' }}
+            </span>
+            <span class="tag" [class.available]="location.meuble" [class.unavailable]="!location.meuble">
+              {{ location.meuble ? 'Meublé' : 'Non Meublé' }}
+            </span>
+          </div>
+        </div>
+        
+        <div class="card-footer">
+          <a [routerLink]="['/locations', location.id]" class="btn-details">Détails</a>
+          <button (click)="toggleFavorite(location)" class="favorite-btn favorited">
+            ★
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
